@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Todo List 🗒🗒</string>
+    <string name="action_checked">Finished Tasks</string>
+</resources>

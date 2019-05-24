@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView
+            android:text="Add a new task"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView"
+            android:textSize="20sp"
+            android:fontFamily="@font/opensans_light"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="16dp"/>
+    <TextView
+            android:text="What do you plan to do next?"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2"
+            android:textSize="18sp"
+            android:fontFamily="@font/opensans_light"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="16dp"/>
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/editText"
+            android:fontFamily="@font/opensans_light"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="16dp"/>
+    <Button
+            android:text="Pick Date"
+            android:onClick="showDatePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button"
+            android:visibility="gone"
+            android:fontFamily="@font/opensans_light"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"
+            android:textAlignment="gravity"
+            android:gravity="center|center_horizontal|center_vertical"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"/>
+</LinearLayout>

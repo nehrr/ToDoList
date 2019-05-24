@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:id="@+id/one_task"
+              android:paddingBottom="16dp"
+              android:paddingTop="8dp">
+
+    <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/task"
+            android:textSize="16sp"
+            android:fontFamily="@font/opensans_light"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/date"
+            android:textAlignment="viewEnd"
+            android:fontFamily="@font/opensans_light"
+            android:text="test"
+            android:paddingEnd="8dp"
+            android:textSize="10sp"
+            android:onClick="openDatePicker"/>
+</LinearLayout>
