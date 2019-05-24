@@ -97,7 +97,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
     suspend fun getTasks() {
         val res = taskService.getTasks().await()
-        Log.d("RES", res.toString())
         taskList.clear()
         taskList.addAll(res)
         recyclerView.adapter?.notifyDataSetChanged()
@@ -105,7 +104,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
     suspend fun addTask(content: String, date: TaskDate? = null) {
         val task = Task("", content, false, "", date)
-        Log.d("TASK", task.toString())
         val res = taskService.addTask(task).await()
         if (res.id != "") {
             taskList.add(res)
@@ -118,7 +116,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     }
 
     fun onFinish(content: String, date: TaskDate?) {
-        Log.d("date", date.toString())
         if (content.isNotBlank()) {
             try {
                 launch {
@@ -130,21 +127,4 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         }
         fab.isEnabled = true
     }
-
-
-    /*override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_checked -> true
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-    */
 }

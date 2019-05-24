@@ -31,7 +31,6 @@ class TaskAdapter(var taskList: List<Task>, val onClickClose: (Int, Boolean) -> 
     inner class TaskViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         fun bind(task: Task) {
-            Log.d("TASK", task.toString())
             itemView.task?.text = task.content
             itemView.date?.text = parseDate(task.created)
             itemView.due_date?.text = task.due?.date ?: "No due date"
