@@ -3,6 +3,7 @@ package com.example.todolist.view
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,7 +56,7 @@ class DatePickerFragment(val onResult: (String) -> Unit) : DialogFragment(), Dat
     }
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
-        var monthFormatted = String.format("%02d", month)
+        var monthFormatted = String.format("%02d", month + 1)
         var dayFormatted = String.format("%02d", day)
         onResult("$year-$monthFormatted-$dayFormatted")
     }

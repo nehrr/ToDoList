@@ -58,8 +58,6 @@ interface TaskApiService {
     @POST("tasks/{id}/reopen")
     fun openTask(@Path("id") id: String): Deferred<Response<ResponseBody>>
 
-    //@POST()
-
     @FormUrlEncoded
     @POST("https://todoist.com/API/v8.1/items/get_completed")
     suspend fun getCompletedTasks(

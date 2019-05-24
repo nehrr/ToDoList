@@ -23,13 +23,24 @@
             android:paddingEnd="8dp"
             android:textSize="10sp"/>
 
-    <TextView
+    <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/due_date"
-            android:textAlignment="viewEnd"
-            android:fontFamily="@font/opensans_light"
-            android:text="No due date"
-            android:paddingEnd="8dp"
-            android:textSize="10sp"/>
+            android:layout_height="match_parent">
+        <TextView
+                android:text="Due:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/due" android:layout_weight="1"
+                android:textSize="10sp" android:fontFamily="@font/opensans_light" android:layout_marginEnd="8dp"
+                android:textAlignment="viewEnd"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/due_date"
+                android:textAlignment="viewEnd"
+                android:fontFamily="@font/opensans_light"
+                android:text="No due date"
+                android:paddingEnd="8dp"
+                android:textSize="10sp"/>
+    </LinearLayout>
 </LinearLayout>
