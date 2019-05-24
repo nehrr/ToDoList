@@ -1,6 +1,7 @@
 package com.example.todolist
 
 import android.graphics.Paint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,11 +31,14 @@ class TaskAdapter(var taskList: List<Task>, val onClickClose: (Int, Boolean) -> 
     inner class TaskViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         fun bind(task: Task) {
+            Log.d("TASK", task.toString())
             itemView.task?.text = task.content
             itemView.date?.text = parseDate(task.created)
+            itemView.due_date?.text = task.due?.date ?: "No due date"
             itemView.task?.isChecked = task.completed
             itemView.task?.strikeThrough = task.completed
             itemView.date?.strikeThrough = task.completed
+            itemView.due_date?.strikeThrough = task.completed
         }
 
         var taskItemView: TextView? = null

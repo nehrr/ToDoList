@@ -5,6 +5,11 @@ data class Task(
     val content: String,
     val completed: Boolean,
     val created: String,
-    val due_date: String?
+    val due: TaskDate?,
+    val due_date: String? = due?.date // hack
+)
+
+data class TaskDate(
+    val date: String?
 )
 

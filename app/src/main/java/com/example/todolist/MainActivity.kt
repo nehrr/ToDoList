@@ -28,7 +28,9 @@ import androidx.recyclerview.widget.DividerItemDecoration
 
 import java.util.*
 import android.view.LayoutInflater
-
+import com.example.android.todolist.network.TaskDate
+import com.example.todolist.view.AddTaskDialogFragment
+import com.example.todolist.view.DatePickerFragment
 
 
 class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
@@ -70,18 +72,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
         fab.setOnClickListener { view ->
             view.isEnabled = false
-            showAddItemDialog {
-                if (it != null && it.isNotBlank()) {
-                    try {
-                        launch {
-                            addTask(it)
-                        }
-                    } catch (e: Exception) {
-                        Log.e("err", e.toString())
-                    }
-                }
-                view.isEnabled = true
-            }
+            showAddItemDialog()
         }
     }
 
@@ -112,43 +103,39 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         recyclerView.adapter?.notifyDataSetChanged()
     }
 
-    suspend fun addTask(content: String) {
-        val res = taskService.addTask(Task("", content, false, "", "")).await()
+    suspend fun addTask(content: String, date: TaskDate? = null) {
+        val task = Task("", content, false, "", date)
+        Log.d("TASK", task.toString())
+        val res = taskService.addTask(task).await()
         if (res.id != "") {
             taskList.add(res)
             recyclerView.adapter?.notifyDataSetChanged()
         }
     }
 
-    private fun showAddItemDialog(onFinish: (String?) -> Unit) {
-        val inflater: LayoutInflater = LayoutInflater.from(applicationContext)
-        val dialogView = inflater.inflate(R.layout.dialog, null)
-
-        val editText = dialogView.findViewById<EditText>(R.id.editText)
-
-        val dialog = AlertDialog.Builder(this)
-            .setView(dialogView)
-            .setPositiveButton("Add") { _, _ -> onFinish(editText?.text.toString()) }
-            .setNegativeButton("Cancel") { _, _ -> onFinish(null) }
-            .create()
-        dialog.show()
+    private fun showAddItemDialog() {
+        AddTaskDialogFragment(this::onFinish).show(supportFragmentManager, "ADD_TASK_DIALOG")
     }
 
-    fun onResult(date: String) : String {
-        return date
+    fun onFinish(content: String, date: TaskDate?) {
+        Log.d("date", date.toString())
+        if (content.isNotBlank()) {
+            try {
+                launch {
+                    addTask(content, date)
+                }
+            } catch (e: Exception) {
+                Log.e("err", e.toString())
+            }
+        }
+        fab.isEnabled = true
     }
 
-    fun showDatePicker(view: View) {
-        Log.d("TEST", "push push dah button")
-        val newFragment = DatePickerFragment(this::onResult)
-        newFragment.show(supportFragmentManager, "datePicker")
-    }
 
     /*override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
@@ -160,21 +147,4 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         }
     }
     */
-}
-
-class DatePickerFragment(val onResult: (String) -> (String)) : DialogFragment(), DatePickerDialog.OnDateSetListener {
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        // Use the current date as the default date in the picker
-        val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
-
-        // Create a new instance of DatePickerDialog and return it
-        return DatePickerDialog(activity, this, year, month, day)
-    }
-
-    override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
-        onResult("$year $month $day")
-    }
 }
