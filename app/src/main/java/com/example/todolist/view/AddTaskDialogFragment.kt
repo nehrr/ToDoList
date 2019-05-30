@@ -3,14 +3,12 @@ package com.example.todolist.view
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
 import com.example.android.todolist.network.TaskDate
-
 import com.example.todolist.R
 import kotlinx.android.synthetic.main.fragment_add_task_dialog.*
 import kotlinx.android.synthetic.main.fragment_add_task_dialog.view.*
@@ -18,6 +16,7 @@ import java.util.*
 
 
 class AddTaskDialogFragment(val onFinish: (String, TaskDate?) -> Unit) : DialogFragment() {
+
     private var date : TaskDate? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -26,6 +25,7 @@ class AddTaskDialogFragment(val onFinish: (String, TaskDate?) -> Unit) : DialogF
         view.button.setOnClickListener {
             val newFragment = DatePickerFragment { dateString ->
                 date = TaskDate(dateString)
+                view.button.text = dateString // Pour voir que la date a été prise en compte
             }
             newFragment.show(activity!!.supportFragmentManager, "datePicker")
         }
@@ -36,12 +36,12 @@ class AddTaskDialogFragment(val onFinish: (String, TaskDate?) -> Unit) : DialogF
         }
 
         view.cancel.setOnClickListener {
+            onFinish("", null) // Pou pas bloquer le bouton +
             dismiss()
         }
 
         return view
     }
-
 }
 
 
